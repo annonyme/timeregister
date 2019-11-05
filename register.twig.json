@@ -1,0 +1,4 @@
+{
+	"controller":"timerec\\controllers\\RegisterController",
+	"template":"register.html"
+}

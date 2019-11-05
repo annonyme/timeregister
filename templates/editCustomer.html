@@ -1,0 +1,33 @@
+<div style="background-color: white;">
+	<div class="panel-heading">
+		<h3>Edit {{model.customer.name}}</h3>
+	</div>
+	<nav class="panel-body">
+		<a href="index.php?page={{request.page}}&sub=entries&customerId={{model.customer.id}}" class="btn btn-warning">&lt;&lt; back</a>
+	</nav>
+	<div class="panel-body">	
+		<form method="post" action="index.php?page={{request.page}}&sub=editCustomer">
+			<input type="hidden" name="customerId" value="{{model.customer.id}}"/>
+			<input type="hidden" name="groupId" value="{{model.group.id}}"/>
+			<div class="form-group">
+				<label for="customerName">Name</label>
+				<input type="text" class="form-control" id="customerName" required placeholder="Name..." name="customerName" value="{{model.customer.name}}"/>
+			</div>
+			<div class="form-group">
+				<label for="customerEmail">Email</label>
+				<input type="email" class="form-control" id="customerEmail" placeholder="customer@example.com" name="customerEmail" value="{{model.customer.email}}"/>
+			</div>
+			<div class="form-group">
+				<label for="customerPhone">Phone</label>
+				<input type="text" class="form-control" id="customerPhone" placeholder="" name="customerPhone" value="{{model.customer.phone}}"/>
+			</div>
+			
+			<div class="form-group">
+				<label for="customerAddress">Address</label>
+				<textarea class="form-control" id="customerAddress" placeholder="street, postcode, city" name="customerAddress">{{model.customer.address}}</textarea>
+			</div>
+
+			<button type="submit" class="btn btn-default">Save</button>
+		</form>
+	</div>
+</div>

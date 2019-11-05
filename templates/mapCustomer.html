@@ -1,0 +1,13 @@
+<div style="background-color: white;"></div>
+	<div class="panel-heading">
+		<h3>Time-Entries for {{model.customer.name}}</h3>
+	</div>
+	<nav class="panel-body">
+		<a href="index.php?page={{request.page}}&sub=entries&customerId={{model.customer.id}}" class="btn btn-warning">&lt;&lt; back</a>
+	</nav>
+	<div class="panel-body">
+		<iframe class="map" height="400" frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" 
+		src="https://nominatim.openstreetmap.org/search?q={{model.query}}&format=html&polygon=1&addressdetails=1"
+		style="border: 1px solid black"></iframe>
+	</div>
+</div>

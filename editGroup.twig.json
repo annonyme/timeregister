@@ -1,0 +1,4 @@
+{
+	"controller":"timerec\\controllers\\EditGroupController",
+	"template":"editGroup.html"
+}

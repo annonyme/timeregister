@@ -1,0 +1,16 @@
+{
+  "listeners": [
+    {
+      "alias": "theme_load_by_name",
+      "scope": "on",
+      "class": "timerec\\Listener",
+      "method": "onLoad"
+    },
+    {
+      "alias": "themes_collect_names",
+      "scope": "on",
+      "class": "timerec\\Listener",
+      "method": "onList"
+    }
+  ]
+}

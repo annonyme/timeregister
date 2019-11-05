@@ -1,0 +1,4 @@
+{
+	"controller":"timerec\\controllers\\EntriesController",
+	"template":"entries.html"
+}

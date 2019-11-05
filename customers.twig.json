@@ -1,0 +1,4 @@
+{
+	"controller":"timerec\\controllers\\CustomersController",
+	"template":"customers.html"
+}

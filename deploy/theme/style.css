@@ -1,0 +1,32 @@
+button.time-rec{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:2vh;
+	margin-bottom:2vh;
+	transform:scale(2);
+	
+	animation-name:grow;
+	animation-duration:0.5s;
+}
+
+@keyframes grow{
+	0%{transform:scale(0.5);opacity:0.0;}
+	80%{transform:scale(2.1);}
+	90%{transform:scale(1.9);}
+	100%{transform:scale(2);opacity:1;}
+}
+
+.main-header, .main-footer{
+	text-align: center;
+}
+
+div.container{
+	padding-top:2vh;
+}
+
+iframe.map {	
+	display:block;
+	width:100%;
+	heigth:600px;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<title>Mobile Time Tracking - Customer Related Time Recording - Free and with CSV export and map intergration.</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+   		<meta name="robots" content="index, follow" />
+   		<meta name="viewport" content="user-scalable=no,width=device-width" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<?=\core\addons\XWAddonManager::instance()->getAddonByName("XWThemeStylesLoader")->printStyles() ?>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<header class="panel-heading main-header">
+						<h1>Mobile Time Tracking</h1>
+						<h2>Customer related time recording</h2>
+					</header>
+					<div class="panel-body">
+						<ul class="nav nav-tabs nav-justified">
+						  	<li role="presentation"><a href="/index.php">Time Tracking</a></li>
+						  	<li role="presentation"><a href="/index.php?page=info">Our System</a></li>
+						  	<li role="presentation"><a href="/index.php?page=contact">Contact</a></li>
+							<li role="presentation"><a href="/index.php?page=datenschutz">Privacy-Infos</a></li>
+						</ul>
+					</div>
+					<?php
+						\core\utils\displayMessages\DisplayMessageFactory::instance()->renderAll();
+					?>
+					<?php cmsPageContent(); ?>
+					
+					<footer class="panel-footer main-footer">
+						A free smartphone optimized Time Tracking System<br/>by <a href="https://www.hannespries.de" target="_blank">hannespries.de</a>
+					</footer>
+				</div>
+			</div>
+			</div>
+		</div>
+	<body>
+</html>
