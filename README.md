@@ -15,7 +15,7 @@ php cli.php aoop:modules:install --instance=default --module=timeregister
 ```
 after this you can use the module.
 
-## WIP
+## WIP/TODOs
 * Save/Edit/Delete message-ouput has to be added to the theme
 * keep-session alive via  XHR
 * redirect to login-page if session timed out 
