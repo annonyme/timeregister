@@ -1,4 +1,4 @@
 {
 	"controller":"timerec\\controllers\\MapCustomerController",
-	"template":"mapCustomer.html"
+	"template":"mapCustomer.html.twig"
 }

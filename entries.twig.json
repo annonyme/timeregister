@@ -1,4 +1,4 @@
 {
 	"controller":"timerec\\controllers\\EntriesController",
-	"template":"entries.html"
+	"template":"entries.html.twig"
 }
