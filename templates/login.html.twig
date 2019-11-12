@@ -1,22 +1,22 @@
 <div style="background-color: white;">
 	<div class="panel-heading">
-		<h3>Login</h3>
+		<h3>{{dict.login_label}}</h3>
 	</div>
 	<div class="panel-body">
 		<form method="post">
 			<input type="hidden" name="_XW_SESSION_SEC" value="{{model.secToken}}"/>
 			<div class="form-group">
-				<label for="customerName">Username</label>
-				<input type="text" class="form-control" id="username" required placeholder="username or email" name="username"/>
+				<label for="customerName">{{dict.username_label}}</label>
+				<input type="text" class="form-control" id="username" required placeholder="{{dict.username_placeholder}}" name="username"/>
 			</div>
 			<div class="form-group">
-				<label for="customerPhone">Password</label>
+				<label for="customerPhone">{{dict.password_label}}</label>
 				<input type="password" class="form-control" id="userpassword" placeholder="" name="userpassword"/>
 			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<button type="submit" class="btn btn-primary">{{dict.do_login}}</button>
 		</form>
 	</div>
 	<div class="panel-footer">
-		<a href="index.php?page={{request.page}}&sub=register">register a new account</a>
+		<a href="index.php?page={{request.page}}&sub=register">{{dict.register_new_account}}</a>
 	</div>
 </div>

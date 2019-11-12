@@ -1,15 +1,15 @@
 <div style="background-color: white;">
 	<div class="panel-heading">
-		<h3>Customers in {{model.group.name}} <span class="badge">{{model.fullCount}}</span></h3>
+		<h3>{{dict.customers_in}} {{model.group.name}} <span class="badge">{{model.fullCount}}</span></h3>
 	</div>
 	<nav class="panel-body">
-		<a href="index.php?page={{request.page}}&sub=index" class="btn btn-warning">&lt;&lt; back</a>
+		<a href="index.php?page={{request.page}}&sub=index" class="btn btn-warning">&lt;&lt; {{dict.back}}</a>
 		{% if model.isOwner %}
 		<a href="index.php?page={{request.page}}&sub=editGroup&groupId={{model.group.id}}" class="btn btn-primary">
-			edit {{model.group.name}}
+			{{dict.do_edit}} {{model.group.name}}
 		</a>
 		<a href="index.php?page={{request.page}}&sub=editCustomer&customerId=0&groupId={{model.group.id}}" class="btn btn-primary">
-			Create Customer
+			{{dict.create_customer}}
 		</a>
 		{% endif %}
 	</nav>
@@ -19,7 +19,7 @@
 				<h4 class="list-group-item-heading">{{customer.name}}</h4>
 				<p class="list-group-item-text">
 					{% if customer.email %}
-						Email: {{customer.email}}<br/>
+						{{dict.email_label}}: {{customer.email}}<br/>
 					{% endif %}
 					{{customer.address}}
 				</p>

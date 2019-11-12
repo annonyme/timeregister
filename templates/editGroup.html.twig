@@ -1,6 +1,6 @@
 <div style="background-color: white;">
 	<div class="panel-heading">
-		<h3>Edit {{model.group.name}} (Invitation-Code: {{model.group.invitationCode}})</h3>
+		<h3>{{dict.edit_label}} {{model.group.name}} ({{dict.invitation_code_label}}: {{model.group.invitationCode}})</h3>
 	</div>
 	<nav class="panel-body">
 		<a href="index.php?page={{request.page}}&sub=customers&groupId={{model.group.id}}" class="btn btn-warning">&lt;&lt; back</a>
@@ -9,25 +9,25 @@
 		<form method="post" action="index.php?page={{request.page}}&sub=editGroup">
 			<input type="hidden" name="groupId" value="{{model.group.id}}"/>
 			<div class="form-group">
-				<label for="groupName">Name</label>
-				<input type="text" class="form-control" id="groupName" required placeholder="Name..." name="groupName" value="{{model.group.name}}"/>
+				<label for="groupName">{{dict.name_label}}</label>
+				<input type="text" class="form-control" id="groupName" required placeholder="{{dict.name_label}}..." name="groupName" value="{{model.group.name}}"/>
 			</div>
 			<div class="form-group">
-				<label for="groupDescription">Description</label>
-				<input type="text" class="form-control" id="groupDescription" placeholder="Description..." name="groupDescription" value="{{model.group.description}}"/>
+				<label for="groupDescription">{{dict.description_label}}</label>
+				<input type="text" class="form-control" id="groupDescription" placeholder="{{dict.description_label}}..." name="groupDescription" value="{{model.group.description}}"/>
 			</div>
-			<button type="submit" class="btn btn-default">Save</button>
+			<button type="submit" class="btn btn-default">{{dict.do_save}}</button>
 		</form>
 	</div>
 	{% if model.exists %}
 	<div class="panel-body">
-		<h4>Members:</h4>
+		<h4>{{dict.members_label}}:</h4>
 	</div>
 	<div class="panel-body">
 		<form method="post" action="index.php?page={{request.page}}&sub=editGroup">
 			<input type="hidden" name="groupId" value="{{model.group.id}}"/>
 			<div class="form-group">
-				<label for="userName">Add User</label>
+				<label for="userName">{{dict.add_user}}</label>
 				<input type="text" class="form-control" id="userName" list="userlist" required placeholder="user@example.com" name="userName" value=""/>
 				<datalist id="userlist">
 					{% if model.userlist %}
@@ -37,14 +37,14 @@
 					{% endif %}
 				</datalist>
 			</div>
-			<button type="submit" class="btn btn-default">Add</button>
+			<button type="submit" class="btn btn-default">{{dict.do_add}}</button>
 		</form>
 	</div>
 	<div class="list-group">	
 		{% for member in model['members'] %}
 			<div class="list-group-item">
 				<p class="list-group-item-text">
-					<a href="index.php?page={{request.page}}&sub=editGroup&groupId={{model.group.id}}&memberId={{member.id}}" class="btn btn-danger btn-sm" role="button">remove</a> {{member.name}}
+					<a href="index.php?page={{request.page}}&sub=editGroup&groupId={{model.group.id}}&memberId={{member.id}}" class="btn btn-danger btn-sm" role="button">{{dict.do_remove}}</a> {{member.name}}
 				</p>
 			</div>
 		{% endfor %}
