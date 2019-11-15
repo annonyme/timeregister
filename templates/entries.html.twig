@@ -28,17 +28,17 @@
 		</a>
 		{% endif %}
 	</div>
-	<div class="panel-body">
+	<div class="panel-body text-center">
 		<form method="post" action="index.php?page={{request.page}}&sub=entries">
 			<input type="hidden" name="customerId" value="{{model.customer.id}}"/>
 			<input type="hidden" name="recordTime" value="true"/>
 		{% if model.running %}
-			<button class="btn btn-lg btn-danger time-rec" type="submit">{{dict.stop}}</button><br>
+			<button class="btn btn-lg btn-danger time-rec" style="font-size: 200%;" type="submit">{{dict.stop}}</button><br>
 			<div class="form-group">
 				<input type="text" class="time-rec-comment form-control" maxlength="25" name="timeComment" value="" placeholder="{{dict.comment_placeholder}}" />
 			</div>
 		{% else %}
-			<button class="btn btn-lg btn-success time-rec" type="submit">{{dict.start}}</button>
+			<button class="btn btn-lg btn-success time-rec" style="font-size: 200%;" type="submit">{{dict.start}}</button>
 		{% endif %}
 		</form>
 	</div>
