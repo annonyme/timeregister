@@ -1,27 +1,27 @@
 <div style="background-color: white;">
 	<div class="panel-heading">
-		<h3>Register</h3>
+		<h3>{{dict.register_label}}</h3>
 	</div>
 	<div class="panel-body">
 		<form method="post">
 			<input type="hidden" name="_XW_SESSION_SEC" value="{{model.secToken}}"/>
 			<div class="form-group">
-				<label for="username">Email-Address</label>
+				<label for="username">{{dict.emailaddress_label}}</label>
 				<input type="email" class="form-control" id="username" required placeholder="your.email@example.com" name="username" value="{{model.username}}"/>
 			</div>
 			<div class="form-group">
-				<label for="userpassword">Password</label>
+				<label for="userpassword">{{dict.password_label}}</label>
 				<input type="password" class="form-control" id="userpassword" required placeholder="" name="userpassword"/>
 			</div>
 			<div class="form-group">
-				<label for="userpassword2">Reenter Password</label>
+				<label for="userpassword2">{{dict.reenter_password_label}}</label>
 				<input type="password" class="form-control" id="userpassword2" required placeholder="" name="userpassword2"/>
 			</div>
 			<div class="form-group">
 				<label for="captcha">{{model.captchaValue1}} + ? = {{model.captchaResult}}</label>
 				<input type="number" class="form-control" id="captcha" required placeholder="0" name="captcha"/>
 			</div>
-			<button type="submit" class="btn btn-primary">Register</button>
+			<button type="submit" class="btn btn-primary">{{dict.do_register}}</button>
 		</form>
 	</div>
 </div>

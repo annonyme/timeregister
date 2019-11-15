@@ -1,55 +1,55 @@
 <div style="background-color: white;">
 	<div class="panel-heading">
-		<h3>Time-Entries for {{model.customer.name}}</h3>
+		<h3>{{dict.timeentries_of}} {{model.customer.name}}</h3>
 	</div>
 	<nav class="panel-body">
-		<a href="index.php?page={{request.page}}&sub=customers&groupId={{model.group.id}}" class="btn btn-warning">&lt;&lt; back</a>
+		<a href="index.php?page={{request.page}}&sub=customers&groupId={{model.group.id}}" class="btn btn-warning">&lt;&lt; {{dict.back}}</a>
 		{% if model.isOwner %}
 		<a href="index.php?page={{request.page}}&sub=editCustomer&customerId={{model.customer.id}}" class="btn btn-primary">
-			edit {{model.customer.name}}
+			{{dict.do_edit}} {{model.customer.name}}
 		</a>
 		<a href="index.php?page={{request.page}}&sub=export&customerId={{model.customer.id}}" class="btn btn-success">
-			Export CSV
+			{{dict.do_export_csv}}
 		</a>
 		{% endif %}
 	</nav>
 	<div class="list-group">
 		<a href="index.php?page={{request.page}}&sub=mapCustomer&customerId={{model.customer.id}}" class="list-group-item">
-			<span class="glyphicon glyphicon-flag"></span> Address on map		
+			<span class="glyphicon glyphicon-flag"></span> {{dict.address_on_map}}		
 		</a>
 		{% if model.customer.email %}
 		<a href="mailto:{{model.customer.email}}" class="list-group-item">
-			<span class="glyphicon glyphicon-envelope"></span> Email: {{model.customer.email}}		
+			<span class="glyphicon glyphicon-envelope"></span> {{dict.email_label}}: {{model.customer.email}}		
 		</a>
 		{% endif %}
 		{% if model.customer.phone %}
 		<a href="tel:{{model.customer.phone}}" class="list-group-item">
-			<span class="glyphicon glyphicon-earphone"></span> Phone: {{model.customer.phone}}		
+			<span class="glyphicon glyphicon-earphone"></span> {{dict.phone_label}}: {{model.customer.phone}}		
 		</a>
 		{% endif %}
 	</div>
-	<div class="panel-body">
+	<div class="panel-body text-center">
 		<form method="post" action="index.php?page={{request.page}}&sub=entries">
 			<input type="hidden" name="customerId" value="{{model.customer.id}}"/>
 			<input type="hidden" name="recordTime" value="true"/>
 		{% if model.running %}
-			<button class="btn btn-lg btn-danger time-rec" type="submit">Stop</button><br>
+			<button class="btn btn-lg btn-danger time-rec" style="font-size: 200%;" type="submit">{{dict.stop}}</button><br>
 			<div class="form-group">
-				<input type="text" class="time-rec-comment form-control" maxlength="25" name="timeComment" value="" placeholder="add a comment (max 25)" />
+				<input type="text" class="time-rec-comment form-control" maxlength="25" name="timeComment" value="" placeholder="{{dict.comment_placeholder}}" />
 			</div>
 		{% else %}
-			<button class="btn btn-lg btn-success time-rec" type="submit">Start</button>
+			<button class="btn btn-lg btn-success time-rec" style="font-size: 200%;" type="submit">{{dict.start}}</button>
 		{% endif %}
 		</form>
 	</div>
 	<table class="table">
 		<tr>
-			<th>Group-User</th>
-			<th>Start</th>
-			<th>Stop</th>
-			<th>Time</th>
-			<th>Comment</th>
-			<th>exported</th>
+			<th>{{dict.groupuser_label}}</th>
+			<th>{{dict.start}}</th>
+			<th>{{dict.stop}}</th>
+			<th>{{dict.time_label}}</th>
+			<th>{{dict.comment_label}}</th>
+			<th>{{dict.exported}}</th>
 		</tr>
 		{% for entry in model['entries'] %}
 			<tr>

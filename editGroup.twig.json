@@ -1,4 +1,4 @@
 {
 	"controller":"timerec\\controllers\\EditGroupController",
-	"template":"editGroup.html"
+	"template":"editGroup.html.twig"
 }

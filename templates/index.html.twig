@@ -1,14 +1,14 @@
 <div style="background-color: white;">
 	<div class="panel-heading">
-		<h3>Your Groups <span class="badge">{{model.fullCount}}</span></h3>
+		<h3>{{dict.your_groups}} <span class="badge">{{model.fullCount}}</span></h3>
 	</div>
 	<nav class="panel-body">
-		<a href="index.php?page={{request.page}}&sub=editGroup&groupId=0" class="btn btn-primary">create new group</a>
+		<a href="index.php?page={{request.page}}&sub=editGroup&groupId=0" class="btn btn-primary">{{dict.do_create_new_group}}</a>
 	</nav>
 	<div class="list-group">
 		{% for group in model['ownGroups'] %}
 			<a href="index.php?page={{request.page}}&sub=customers&groupId={{group.id}}" class="list-group-item">
-				<span class="badge">owner</span>
+				<span class="badge">{{dict.owner}}</span>
 				<h4 class="list-group-item-heading">{{group.name}}</h4>
 				<p class="list-group-item-text">
 					{{group.description}}
@@ -27,8 +27,8 @@
 	<div class="panel-body">
 		<form method="post" action="index.php?page={{request.page}}">
 			<label for="invitationcode">Your invitation-Code:</label>
-			<input type="text" maxlength="8" class="form-control" id="invitationcode" required placeholder="e.g. 12345678" name="invitationcode" value=""/>
-			<input class="btn btn-primary" type="submit" value="send code"/>
+			<input type="text" maxlength="8" class="form-control" id="invitationcode" required placeholder="{{dict.invitation_code_placeholder}}" name="invitationcode" value=""/>
+			<input class="btn btn-primary" type="submit" value="{{dict.do_send_code}}"/>
 		</form>
 	</div>	
 </div>
