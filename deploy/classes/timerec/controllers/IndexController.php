@@ -18,8 +18,8 @@ class IndexController extends XWModulePageController{
 		    $model["ownGroups"]=GroupDAO::instance()->loadGroupListByOwner($_SESSION["XWUSER"]);
 		    $model["memberGroups"]=GroupDAO::instance()->loadGroupListByUser($_SESSION["XWUSER"]);
 		    $model["fullCount"]=count($model["ownGroups"])+count($model["memberGroups"]);
-		    if(XWRequest::instance()->exists("invitationcode")){
-		        $group = GroupDAO::instance()->loadGroupByInvitationCode(XWRequest::instance()->getString("invitationcode"));
+		    if($this->getRequest()->exists("invitationcode")){
+		        $group = GroupDAO::instance()->loadGroupByInvitationCode($this->getRequest()->getString("invitationcode"));
 		        
 		        $found = false;
 		        foreach ($model["memberGroups"] as $g){
@@ -32,8 +32,11 @@ class IndexController extends XWModulePageController{
 		            $user = XWUserDAO::instance()->getCurrentUser();
 		            
 		            if($user && $user->getId() > 0){
-		                GroupDAO::instance()->addUserToGroup($user, $group);
-		                DisplayMessageFactory::instance()->addDisplayMessage("Added User", "User '".$user->getName()."' added to " . $group->getName() . ".");
+						GroupDAO::instance()->addUserToGroup($user, $group);
+						
+						/** @var $messages DisplayMessageFactory */
+						$messages = Services::getContainer()->get('messages');
+		                $messages->addDisplayMessage("Added User", "User '".$user->getName()."' added to " . $group->getName() . ".");
 		                
 		                $model["ownGroups"]=GroupDAO::instance()->loadGroupListByOwner($_SESSION["XWUSER"]);
 		                $model["memberGroups"]=GroupDAO::instance()->loadGroupListByUser($_SESSION["XWUSER"]);

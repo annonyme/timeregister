@@ -13,11 +13,12 @@ use core\addons\XWAddonManager;
 use core\utils\displayMessages\DisplayMessageFactory;
 use core\utils\dates\XWCalendar;
 use xw\entities\users\XWUserManagmentDAO;
+use hannespries\events\EventHandler;
 
 class EntriesController extends XWModulePageController{        
     /**
-     * @param unknown $entries
-     * @return NULL|Entry
+     * @param array $entries
+     * @return null|Entry
      */
     private function findLastOpenEntryOfUser($entries){
         $result = null;
@@ -33,8 +34,14 @@ class EntriesController extends XWModulePageController{
 	    $result=new XWModulePageRenderingResult();
 	    $model=[];
 	
-		if(XWUserDAO::instance()->isCurrentUserValid() && XWRequest::instance()->exists("customerId")){
-			$customer = CustomerDAO::instance()->loadCustomer(XWRequest::instance()->getInt("customerId"));
+		/** @var $messages DisplayMessageFactory */
+		$messages = Services::getContainer()->get('messages');
+
+		if(XWUserDAO::instance()->isCurrentUserValid() && $this->getRequest()->exists("customerId")){
+			/** @var $events hannespries\events\EventHandler */
+			$events = Services::getContainer()->get('events');			
+			
+			$customer = CustomerDAO::instance()->loadCustomer($this->getRequest()->getInt("customerId"));
 			$group = GroupDAO::instance()->loadGroup($customer->getGroupId());
 			$model["isOwner"]=$group->getOwnerId()==$_SESSION["XWUSER"]->getId();
 			$model["group"]=$group;
@@ -42,30 +49,40 @@ class EntriesController extends XWModulePageController{
 			$model["recordedTime"]=false;
 			if($group->getOwnerId()==$_SESSION["XWUSER"]->getId() || GroupDAO::instance()->isMemberOfGroup($group, $_SESSION["XWUSER"])){
 			    $entries = EntryDAO::instance()->loadEntryListByCustomer($customer);
-			    if(XWRequest::instance()->exists("recordTime")){				    
+			    if($this->getRequest()->exists("recordTime")){				    
 				    $lastEntry = $this->findLastOpenEntryOfUser($entries);
 				    $cal = new XWCalendar();
 				    if($lastEntry !== null){
 				        $lastEntry->setStop($cal->getMySQLDateString());
-				        if(XWRequest::instance()->exists("timeComment") && strlen(XWRequest::instance()->get("timeComment")) > 0){
-				            $comment = XWAddonManager::instance()->getAddonByName("XWParserToolKit")->disableHTML(XWRequest::instance()->get("timeComment"));
+				        if($this->getRequest()->exists("timeComment") && strlen($this->getRequest()->get("timeComment")) > 0){
+				            $comment = XWAddonManager::instance()->getAddonByName("XWParserToolKit")->disableHTML($this->getRequest()->get("timeComment"));
 				            $lastEntry->setComment($comment);
-				        }
+						}
+						
+						$events->fireFilterEvent('timerec_stop_presave', $lastEntry, ['subject' => $this]);
 						EntryDAO::instance()->saveEntry($lastEntry);
-						DisplayMessageFactory::instance()->addDisplayMessage("Saved", "Time-Record for  '".$customer->getName()."' saved.");
+						$events->fireFilterEvent('timerec_stop_postsave', $lastEntry, ['subject' => $this]);
+	
+						$messages->addDisplayMessage('Saved', "Time-Record for  '".$customer->getName()."' stoped.");
 					}
 					else{
 						$entry=new Entry();						
 						$entry->setCustomerId($customer->getId());
 						$entry->setStart($cal->getMySQLDateString());
 						$entry->setUserId(XWUserDAO::instance()->getCurrentUser()->getId());
-						if(XWRequest::instance()->exists("timeComment") && strlen(XWRequest::instance()->get("timeComment")) > 0){
-							$comment = XWAddonManager::instance()->getAddonByName("XWParserToolKit")->disableHTML(XWRequest::instance()->get("timeComment"));
+						if($this->getRequest()->exists("timeComment") && strlen($this->getRequest()->get("timeComment")) > 0){
+							$comment = XWAddonManager::instance()->getAddonByName("XWParserToolKit")->disableHTML($this->getRequest()->get("timeComment"));
 							$entry->setComment($comment);
 						}
-						EntryDAO::instance()->saveEntry($entry);
+						
+						$events->fireFilterEvent('timerec_start_presave', $lastEntry, ['subject' => $this]);
+						EntryDAO::instance()->saveEntry($lastEntry);
+						$events->fireFilterEvent('timerec_start_postsave', $lastEntry, ['subject' => $this]);
+
+						//refresh list
 						$model["entries"]=EntryDAO::instance()->loadEntryListByCustomer($customer);
-						DisplayMessageFactory::instance()->addDisplayMessage("Saved", "Time-Record for  '".$customer->getName()."' started.");
+
+						$messages->addDisplayMessage('Saved', "Time-Record for  '".$customer->getName()."' started.");
 					}
 					$model["recordedTime"]=true;	
 					$entries = EntryDAO::instance()->loadEntryListByCustomer($customer);
@@ -110,9 +127,11 @@ class EntriesController extends XWModulePageController{
 				$result->setModel($model);
 			}
 			else{
-			    $indexController = new IndexController();
+				$messages->addDisplayMessage('Session timeout', 'You have to loggin one more time.');
+				
+				$indexController = new IndexController();
 			    $result = $indexController->result();
-			    $result->setAlternativeTemplate("index.html");
+			    $result->setAlternativeTemplate('index.html');
 			}
 		}	
 		
