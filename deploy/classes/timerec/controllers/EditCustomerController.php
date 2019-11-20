@@ -37,7 +37,8 @@ class EditCustomerController extends XWModulePageController{
                     $customer->setGroupId($group->getId());
                     $customer = CustomerDAO::instance()->saveCustomer($customer);
                     
-                    DisplayMessageFactory::instance()->addDisplayMessage("Saved", "Customer '".$customer->getName()."' saved.");
+                    $msg = \sprintf($this->getDictionary()->get('saved_customer_message'), $customer->getName());
+                    DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('saved_label'), $msg);
                 }                
                 
                 $model["customer"] = $customer;

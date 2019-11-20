@@ -54,27 +54,32 @@ class EditGroupController extends XWModulePageController{
                     
                     $group = GroupDAO::instance()->saveGroup($group);
 
-                    DisplayMessageFactory::instance()->addDisplayMessage("Saved", "Group '".$group->getName()."' saved.");
+                    $msg = sprintf($this->getDictionary()->get('saved_group_message'), $group->getName());
+                    DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('saved_label'), $msg);
                 }
                 else if(XWRequest::instance()->exists("userName")){
                     $user = XWUserManagmentDAO::instance()->loadUserByName(XWRequest::instance()->getString("userName"));
                     if($user && $user->getId() > 0){
                         GroupDAO::instance()->addUserToGroup($user, $group);
                         $this->sendMail($user, $group);
-                        DisplayMessageFactory::instance()->addDisplayMessage("Added User", "User '".$user->getName()."' added.");
+                        $msg = sprintf($this->getDictionary()->get('added_user_message'), $user->getName());
+                        DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('added_user_label'), $msg);
                     }
                     else{
-                        DisplayMessageFactory::instance()->addDisplayMessage("Error", "User doesn't exists");
+                        $msg = $this->getDictionary()->get('error_user_message');
+                        DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('error_label'), $msg);
                     }
                 }
                 else if(XWRequest::instance()->exists("memberId")){
                     $user = XWUserManagmentDAO::instance()->loadUser(XWRequest::instance()->getInt("memberId"));
                     if($user && $user->getId() > 0){
                         GroupDAO::instance()->removeUserToGroup($user, $group);
-                        DisplayMessageFactory::instance()->addDisplayMessage("Removed User", "User '".$user->getName()."' removed.");
+                        $msg = sprintf($this->getDictionary()->get('removed_user_message'), $user->getName());
+                        DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('removed_user_label'), $msg);
                     }
                     else{
-                        DisplayMessageFactory::instance()->addDisplayMessage("Error", "User doesn't exists");
+                        $msg = $this->getDictionary()->get('error_user_message');
+                        DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('error_label'), $msg);
                     }
                 }
                 

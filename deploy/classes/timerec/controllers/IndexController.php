@@ -36,7 +36,8 @@ class IndexController extends XWModulePageController{
 						
 						/** @var $messages DisplayMessageFactory */
 						$messages = Services::getContainer()->get('messages');
-		                $messages->addDisplayMessage("Added User", "User '".$user->getName()."' added to " . $group->getName() . ".");
+						$msg = sprintf($this->getDictionary()->get('added_user_to_group_message'), $user->getName(), $group->getName());
+		                $messages->addDisplayMessage($this->getDictionary()->get('added_user_label'), $msg);
 		                
 		                $model["ownGroups"]=GroupDAO::instance()->loadGroupListByOwner($_SESSION["XWUSER"]);
 		                $model["memberGroups"]=GroupDAO::instance()->loadGroupListByUser($_SESSION["XWUSER"]);

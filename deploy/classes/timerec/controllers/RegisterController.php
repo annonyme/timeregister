@@ -23,19 +23,19 @@ class RegisterController extends XWModulePageController{
                             $result = true;  
                         }
                         else{
-                            DisplayMessageFactory::instance()->addDisplayMessage("Error", "Not a valid email-address");
+                            DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('error_label'), "Not a valid email-address");
                         }
                     }
                     else{
-                        DisplayMessageFactory::instance()->addDisplayMessage("Error", "User already exists!");
+                        DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('error_label'), "User already exists!");
                     }
                 }
                 else{
-                    DisplayMessageFactory::instance()->addDisplayMessage("Error", "Password are not equal!");
+                    DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('error_label'), "Passwords are not equal!");
                 }
             }
             else{
-                DisplayMessageFactory::instance()->addDisplayMessage("Error", "Wrong Captcha-value!");
+                DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('error_label'), "Wrong Captcha-value!");
             }
         }
         return $result;
@@ -66,7 +66,8 @@ class RegisterController extends XWModulePageController{
                 $user->setEmail(XWRequest::instance()->get("username"));
                 $user->save(XWRequest::instance()->get("userpassword"));
                 
-                DisplayMessageFactory::instance()->addDisplayMessage("Saved", "New user-account created successfully.");
+                $msg = $this->getDictionary()->get('created_account_message');
+                DisplayMessageFactory::instance()->addDisplayMessage($this->getDictionary()->get('saved_label'), $msg);
                 
                 $this->sendMail($user);
                 

@@ -63,7 +63,8 @@ class EntriesController extends XWModulePageController{
 						EntryDAO::instance()->saveEntry($lastEntry);
 						$events->fireFilterEvent('timerec_stop_postsave', $lastEntry, ['subject' => $this]);
 	
-						$messages->addDisplayMessage('Saved', "Time-Record for  '".$customer->getName()."' stoped.");
+						$msg = sprintf($this->getDictionary()->get('timerec_stoped'), $customer->getName());
+						$messages->addDisplayMessage($this->getDictionary()->get('saved_label'), $msg);
 					}
 					else{
 						$entry=new Entry();						
@@ -82,7 +83,8 @@ class EntriesController extends XWModulePageController{
 						//refresh list
 						$model["entries"]=EntryDAO::instance()->loadEntryListByCustomer($customer);
 
-						$messages->addDisplayMessage('Saved', "Time-Record for  '".$customer->getName()."' started.");
+						$msg = sprintf($this->getDictionary()->get('timerec_started'), $customer->getName());
+						$messages->addDisplayMessage($this->getDictionary()->get('saved_label'), $msg);
 					}
 					$model["recordedTime"]=true;	
 					$entries = EntryDAO::instance()->loadEntryListByCustomer($customer);
@@ -127,7 +129,8 @@ class EntriesController extends XWModulePageController{
 				$result->setModel($model);
 			}
 			else{
-				$messages->addDisplayMessage('Session timeout', 'You have to loggin one more time.');
+				$msg = $this->getDictionary()->get('session_timeout_message');
+				$messages->addDisplayMessage($this->getDictionary()->get('session_timeout_label'), $msg);
 				
 				$indexController = new IndexController();
 			    $result = $indexController->result();
